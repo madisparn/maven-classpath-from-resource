@@ -61,7 +61,15 @@ public class AddResourceDependenciesMojoTest{
 
 
     private String getGroupId( String absolutePathOfParentDir ) {
-        return "local.dependency." + absolutePathOfParentDir.replace( File.separatorChar, '.' ).replace(":", "");
+        String absolutePath = absolutePathOfParentDir.replace( File.separatorChar, '.' ).replace( ":", "" );
+        if ( absolutePath.startsWith(".") )
+        {
+            return "local.dependency" + absolutePath;
+        }
+        else
+        {
+            return "local.dependency." + absolutePath;
+        }
     }
 
     private String getArtifactName( String groupId, String artifactId, String packaging ) {
